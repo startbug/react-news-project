@@ -1,0 +1,30 @@
+{
+  "posts": [
+    {
+      "title": "你牛逼",
+      "id": 1
+    },
+    {
+      "id": 2,
+      "title": "22222",
+      "author": "睡觉"
+    },
+    {
+      "title": "吃饭了吗",
+      "author": "小明",
+      "id": 3
+    },
+    {
+      "title": "吃饭了吗",
+      "author": "小明",
+      "id": 4
+    }
+  ],
+  "comments": [
+    {
+      "id": 1,
+      "body": "some comment",
+      "postId": 1
+    }
+  ]
+}
