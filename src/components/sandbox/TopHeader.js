@@ -5,9 +5,11 @@ import {
   MenuFoldOutlined,
   UserOutlined,
 } from "@ant-design/icons";
+import { withRouter } from "react-router-dom";
+
 const { Header } = Layout;
 
-export default function TopHeader() {
+const TopHeader = (props) => {
   const [collapsed, setCollapsed] = useState(false);
 
   const changeCollapsed = () => {
@@ -16,8 +18,17 @@ export default function TopHeader() {
 
   const menu = (
     <Menu>
-      <Menu.Item>超级管理员</Menu.Item>
-      <Menu.Item danger>退出登录</Menu.Item>
+      <Menu.Item key="username">超级管理员</Menu.Item>
+      <Menu.Item
+        danger
+        key="loginout"
+        onClick={() => {
+          localStorage.removeItem("token");
+          props.history.replace("/login"); //路由定位到login中
+        }}
+      >
+        退出登录
+      </Menu.Item>
     </Menu>
   );
 
@@ -43,4 +54,6 @@ export default function TopHeader() {
       </div>
     </Header>
   );
-}
+};
+
+export default withRouter(TopHeader);

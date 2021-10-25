@@ -10,12 +10,12 @@
       "roleId": 1
     },
     {
-      "username": "铁锤",
-      "password": "123",
+      "username": "ppppppp",
+      "password": "234eqfdaswf234312",
       "roleState": true,
       "default": false,
-      "region": "亚洲",
-      "roleId": 2,
+      "region": "",
+      "roleId": 1,
       "id": 2
     },
     {
@@ -23,8 +23,8 @@
       "password": "123",
       "roleState": true,
       "default": false,
-      "region": "南极洲",
-      "roleId": 2,
+      "region": "",
+      "roleId": 1,
       "id": 3
     },
     {
@@ -32,8 +32,8 @@
       "password": "123",
       "roleState": true,
       "default": false,
-      "region": "",
-      "roleId": 1,
+      "region": "南美洲",
+      "roleId": 2,
       "id": 4
     },
     {
@@ -71,6 +71,24 @@
       "region": "亚洲",
       "roleId": 3,
       "id": 8
+    },
+    {
+      "username": "123123",
+      "password": "12341243",
+      "region": "亚洲",
+      "roleId": 2,
+      "roleState": true,
+      "default": false,
+      "id": 9
+    },
+    {
+      "username": "1241243",
+      "password": "124124123",
+      "region": "",
+      "roleId": 1,
+      "roleState": true,
+      "default": false,
+      "id": 10
     }
   ],
   "roles": [
@@ -79,18 +97,14 @@
       "roleName": "超级管理员",
       "roleType": 1,
       "rights": [
-        "/user-manage",
         "/user-manage/add",
         "/user-manage/delete",
         "/user-manage/update",
         "/user-manage/list",
         "/right-manage",
-        "/right-manage/role/list",
         "/right-manage/right/list",
         "/right-manage/role/update",
-        "/right-manage/role/delete",
         "/right-manage/right/update",
-        "/right-manage/right/delete",
         "/news-manage",
         "/news-manage/list",
         "/news-manage/add",
@@ -105,6 +119,7 @@
         "/publish-manage/unpublished",
         "/publish-manage/published",
         "/publish-manage/sunset",
+        "/user-manage",
         "/home"
       ]
     },
@@ -152,7 +167,10 @@
         "/publish-manage",
         "/publish-manage/unpublished",
         "/publish-manage/published",
-        "/publish-manage/sunset"
+        "/publish-manage/sunset",
+        "/right-manage",
+        "/right-manage/role/list",
+        "/right-manage/right/list"
       ]
     }
   ],

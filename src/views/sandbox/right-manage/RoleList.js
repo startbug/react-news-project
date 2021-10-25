@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Table, Button, Modal } from "antd";
+import { Table, Button, Modal, Tree } from "antd";
 import {
   EditOutlined,
   DeleteOutlined,
@@ -10,9 +10,16 @@ import axios from "axios";
 const { confirm } = Modal;
 export default function RoleList() {
   const [dataSource, setDataSource] = useState([]);
+  const [isModalVisible, setModalVisible] = useState(false);
+  const [rightsDataSource, setRightsDataSource] = useState([]);
+  const [currentCheckedKeys, setCurrentCheckedKeys] = useState([]);
+  const [currentId, setCurrentId] = useState(0);
   useEffect(() => {
     axios.get("http://localhost:8000/roles").then((res) => {
       setDataSource(res.data);
+    });
+    axios.get("http://localhost:8000/rights?_embed=children").then((res) => {
+      setRightsDataSource(res.data);
     });
   }, []);
 
@@ -31,7 +38,16 @@ export default function RoleList() {
       render: (item) => {
         return (
           <div>
-            <Button type="primary" shape="circle" icon={<EditOutlined />} />
+            <Button
+              type="primary"
+              shape="circle"
+              icon={<EditOutlined />}
+              onClick={() => {
+                setCurrentCheckedKeys(item.rights);
+                setModalVisible(true);
+                setCurrentId(item.id);
+              }}
+            />
             <Button
               type="danger"
               shape="circle"
@@ -59,6 +75,37 @@ export default function RoleList() {
     axios.delete(`http://localhost:8000/roles/${item.id}`);
     setDataSource(dataSource.filter((s) => s.id !== item.id));
   };
+
+  const handleOk = () => {
+    console.log("点击ok");
+    console.log(currentCheckedKeys);
+    axios.patch(`http://localhost:8000/roles/${currentId}`, {
+      rights: currentCheckedKeys,
+    });
+    setModalVisible(false);
+    setDataSource(
+      dataSource.map((data) => {
+        if (data.id === currentId) {
+          return {
+            ...data,
+            rights: currentCheckedKeys,
+          };
+        }
+        return data;
+      })
+    );
+  };
+
+  const handleCancel = () => {
+    console.log("点击cancel");
+    setModalVisible(false);
+  };
+
+  const onCheck = (checkedKeys, info) => {
+    console.log("onCheck", checkedKeys);
+    setCurrentCheckedKeys(checkedKeys.checked);
+  };
+
   return (
     <div>
       <Table
@@ -66,6 +113,21 @@ export default function RoleList() {
         columns={columns}
         rowKey={(item) => item.id}
       />
+
+      <Modal
+        title="权限配置"
+        visible={isModalVisible}
+        onOk={handleOk}
+        onCancel={handleCancel}
+      >
+        <Tree
+          checkable
+          checkedKeys={currentCheckedKeys}
+          treeData={rightsDataSource}
+          checkStrictly={true}
+          onCheck={onCheck}
+        />
+      </Modal>
     </div>
   );
 }

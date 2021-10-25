@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Layout, Menu } from "antd";
 import { UserOutlined } from "@ant-design/icons";
 import { withRouter } from "react-router-dom";
-import axios from "_axios@0.21.4@axios";
+import axios from "axios";
 
 const { SubMenu } = Menu;
 const { Sider } = Layout;
