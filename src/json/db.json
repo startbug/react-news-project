@@ -109,12 +109,12 @@
         "/publish-manage/unpublished",
         "/publish-manage/published",
         "/publish-manage/sunset",
-        "/home",
         "/user-manage",
         "/user-manage/list",
         "/right-manage/role/list",
         "/right-manage/role/delete",
-        "/right-manage/right/delete"
+        "/right-manage/right/delete",
+        "/home"
       ]
     },
     {

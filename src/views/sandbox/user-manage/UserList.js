@@ -118,7 +118,7 @@ export default function UserList() {
 
   const handleChange = (item) => {
     console.log(item);
-    axios.patch(`http://localhost:8000/users/${item.id}`, {
+    axios.patch(`/users/${item.id}`, {
       roleState: !item.roleState,
     });
     setDataSource(
@@ -150,7 +150,7 @@ export default function UserList() {
 
   const deleteMethod = (item) => {
     console.log(item);
-    axios.delete(`http://localhost:8000/users/${item.id}`);
+    axios.delete(`/users/${item.id}`);
     setDataSource(
       dataSource.filter((data) => {
         return data.id !== item.id;
@@ -164,7 +164,7 @@ export default function UserList() {
       .then((values) => {
         console.log(values);
         axios
-          .post("http://localhost:8000/users", {
+          .post("/users", {
             ...values,
             roleState: true,
             default: false,
@@ -192,7 +192,7 @@ export default function UserList() {
       .then((values) => {
         console.log(values);
         axios
-          .patch(`http://localhost:8000/users/${currentData.id}`, values)
+          .patch(`/users/${currentData.id}`, values)
           .then((res) => {
             updateForm.current.resetFields();
             setDataSource(
@@ -219,15 +219,15 @@ export default function UserList() {
 
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem("token"));
-    axios.get("http://localhost:8000/regions").then((res) => {
+    axios.get("/regions").then((res) => {
       setRegionList(res.data);
     });
 
-    axios.get("http://localhost:8000/roles").then((res) => {
+    axios.get("/roles").then((res) => {
       setRoleList(res.data);
     });
 
-    axios.get("http://localhost:8000/users?_expand=role").then((res) => {
+    axios.get("/users?_expand=role").then((res) => {
       setDataSource(
         user.roleId === 1
           ? res.data

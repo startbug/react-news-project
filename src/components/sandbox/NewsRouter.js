@@ -33,8 +33,8 @@ const LocalRouterMap = {
 export default function NewsRouter() {
   useEffect(() => {
     Promise.all([
-      axios.get("http://localhost:8000/rights"),
-      axios.get("http://localhost:8000/children"),
+      axios.get("/rights"),
+      axios.get("/children"),
     ]).then((res) => {
       setBackRouteList([...res[0].data, ...res[1].data]);
     });
@@ -42,20 +42,22 @@ export default function NewsRouter() {
 
   const [backRouteList, setBackRouteList] = useState([]);
 
-  const user = JSON.parse(localStorage.getItem("token"));
+  const {
+    role: { rights },
+  } = JSON.parse(localStorage.getItem("token"));
 
-  const checkRoute = () => {
-    return true;
+  const checkRoute = (route) => {
+    return LocalRouterMap[route.key] && route.pagepermisson;
   };
 
-  const checkPermission = () => {
-    return true;
+  const checkPermission = (route) => {
+    return rights.includes(route.key);
   };
 
   return (
     <Switch>
       {backRouteList.map((route) => {
-        if (checkRoute() && checkPermission()) {
+        if (checkRoute(route) && checkPermission(route)) {
           return (
             <Route
               path={route.key}

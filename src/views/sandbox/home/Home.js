@@ -3,12 +3,12 @@ import { Button } from "antd";
 
 export default function Home() {
   const ajax = () => {
-    // axios.get("http://localhost:8000/posts").then((res) => {
+    // axios.get("/posts").then((res) => {
     //   console.log(res);
     // });
 
     // axios
-    //   .post("http://localhost:8000/posts", {
+    //   .post("/posts", {
     //     title: "吃饭了吗",
     //     author: "小明",
     //   })
@@ -18,7 +18,7 @@ export default function Home() {
 
     //覆盖更新
     // axios
-    //   .put("http://localhost:8000/posts/1", {
+    //   .put("/posts/1", {
     //     title: "你牛逼",
     //   })
     //   .then((res) => {
@@ -26,12 +26,12 @@ export default function Home() {
     //   });
 
     //_embed 关联查询
-    // axios.get("http://localhost:8000/posts?_embed=comments").then((res) => {
+    // axios.get("/posts?_embed=comments").then((res) => {
     //   console.log(res);
     // });
 
     //_expand 关联查询
-    // axios.get("http://localhost:8000/comments?_expand=post").then((res) => {
+    // axios.get("/comments?_expand=post").then((res) => {
     //   console.log(res);
     // });
   };

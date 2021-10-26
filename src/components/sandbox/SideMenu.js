@@ -8,7 +8,7 @@ const { Sider } = Layout;
 
 function SideMenu(props) {
   useEffect(() => {
-    axios.get("http://localhost:8000/rights?_embed=children").then((res) => {
+    axios.get("/rights?_embed=children").then((res) => {
       setMenu(res.data);
     });
   }, []);
@@ -24,7 +24,6 @@ function SideMenu(props) {
   };
 
   const renderMenu = (menuList) => {
-    debugger;
     return menuList.map((item) => {
       if (item.children?.length > 0 && checkPagePermission(item)) {
         return (

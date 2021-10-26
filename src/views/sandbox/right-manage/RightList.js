@@ -12,7 +12,7 @@ export default function RightList() {
   const [dataSource, setDataSource] = useState([]);
 
   useEffect(() => {
-    axios.get("http://localhost:8000/rights?_embed=children").then((res) => {
+    axios.get("/rights?_embed=children").then((res) => {
       setDataSource(
         res.data.map((s) => {
           if (!s.children) {
@@ -84,11 +84,11 @@ export default function RightList() {
 
     //patch请求，补丁更新，更新指定的只读，其他字段不变
     if (item.grade === 1) {
-      axios.patch(`http://localhost:8000/rights/${item.id}`, {
+      axios.patch(`/rights/${item.id}`, {
         pagepermisson: item.pagepermisson,
       });
     } else {
-      axios.patch(`http://localhost:8000/children/${item.id}`, {
+      axios.patch(`/children/${item.id}`, {
         pagepermisson: item.pagepermisson,
       });
     }
@@ -108,11 +108,11 @@ export default function RightList() {
 
   const deleteMethod = (item) => {
     if (item.grade === 1) {
-      axios.delete(`http://localhost:8000/rights/${item.id}`);
+      axios.delete(`/rights/${item.id}`);
       setDataSource(dataSource.filter((s) => s.id !== item.id));
     } else {
       let parentNode = dataSource.filter((s) => s.id === item.rightId);
-      axios.delete(`http://localhost:8000/children/${item.id}`);
+      axios.delete(`/children/${item.id}`);
       parentNode[0].children = parentNode[0].children.filter(
         (s) => s.id !== item.id
       );
@@ -126,7 +126,7 @@ export default function RightList() {
         dataSource={dataSource}
         columns={columns}
         pagination={{
-          pageSize: 3,
+          pageSize: 10,
         }}
       />
     </div>

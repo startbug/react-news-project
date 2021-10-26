@@ -15,10 +15,10 @@ export default function RoleList() {
   const [currentCheckedKeys, setCurrentCheckedKeys] = useState([]);
   const [currentId, setCurrentId] = useState(0);
   useEffect(() => {
-    axios.get("http://localhost:8000/roles").then((res) => {
+    axios.get("/roles").then((res) => {
       setDataSource(res.data);
     });
-    axios.get("http://localhost:8000/rights?_embed=children").then((res) => {
+    axios.get("/rights?_embed=children").then((res) => {
       setRightsDataSource(res.data);
     });
   }, []);
@@ -72,14 +72,14 @@ export default function RoleList() {
   };
 
   const deleteMethod = (item) => {
-    axios.delete(`http://localhost:8000/roles/${item.id}`);
+    axios.delete(`/roles/${item.id}`);
     setDataSource(dataSource.filter((s) => s.id !== item.id));
   };
 
   const handleOk = () => {
     console.log("点击ok");
     console.log(currentCheckedKeys);
-    axios.patch(`http://localhost:8000/roles/${currentId}`, {
+    axios.patch(`/roles/${currentId}`, {
       rights: currentCheckedKeys,
     });
     setModalVisible(false);
