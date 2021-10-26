@@ -103,7 +103,6 @@ export default function UserList() {
   const handleUpdate = (item) => {
     // setCurrentRecord(item);
     setTimeout(() => {
-      debugger;
       setUpdateVisiable(true);
       if (item.roleId === 1) {
         // 禁用
@@ -195,7 +194,6 @@ export default function UserList() {
         axios
           .patch(`http://localhost:8000/users/${currentData.id}`, values)
           .then((res) => {
-            debugger;
             updateForm.current.resetFields();
             setDataSource(
               dataSource.map((data) => {
@@ -220,6 +218,7 @@ export default function UserList() {
   };
 
   useEffect(() => {
+    const user = JSON.parse(localStorage.getItem("token"));
     axios.get("http://localhost:8000/regions").then((res) => {
       setRegionList(res.data);
     });
@@ -229,7 +228,16 @@ export default function UserList() {
     });
 
     axios.get("http://localhost:8000/users?_expand=role").then((res) => {
-      setDataSource(res.data);
+      setDataSource(
+        user.roleId === 1
+          ? res.data
+          : [
+              ...res.data.filter((u) => u.id === user.id),
+              ...res.data.filter(
+                (u) => u.region === user.region && u.roleId > user.roleId
+              ),
+            ]
+      );
     });
   }, []);
 
@@ -276,6 +284,7 @@ export default function UserList() {
           regionList={regionList}
           roleList={roleList}
           isUpdateRegionDisabled={isUpdateRegionDisabled}
+          isUpdate={true}
         />
       </Modal>
     </div>

@@ -1,16 +1,30 @@
 import React from "react";
-import { Form, Input, Checkbox, Button } from "antd";
+import { Form, Input, Checkbox, Button, message } from "antd";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
 import "./Login.css";
 import Particles from "react-particles-js";
+import axios from "axios";
 
 export default function Login(props) {
   const onFinish = (values) => {
     console.log(values);
+    axios
+      .get(
+        `http://localhost:8000/users?username=${values.username}&password=${values.password}&roleState=true&_expand=role`
+      )
+      .then((res) => {
+        if (res.data.length === 0) {
+          message.error("用户名或密码错误");
+        } else {
+          localStorage.setItem("token", JSON.stringify(res.data[0]));
+          props.history.push("/");
+        }
+      });
   };
   return (
     <div style={{ background: "rgb(35,39,65)", height: "100%" }}>
       <Particles
+        height={document.documentElement.clientHeight}
         params={{
           background: {
             color: {

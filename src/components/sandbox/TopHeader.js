@@ -16,9 +16,11 @@ const TopHeader = (props) => {
     setCollapsed(!collapsed);
   };
 
+  const { username, role } = JSON.parse(localStorage.getItem("token"));
+
   const menu = (
     <Menu>
-      <Menu.Item key="username">超级管理员</Menu.Item>
+      <Menu.Item key="username">{role.roleName}</Menu.Item>
       <Menu.Item
         danger
         key="loginout"
@@ -47,7 +49,9 @@ const TopHeader = (props) => {
         <MenuFoldOutlined onClick={changeCollapsed} />
       )}
       <div style={{ display: "inline", float: "right" }}>
-        <span>欢迎admin回来</span>
+        <span>
+          欢迎<span style={{ color: "#1890ff" }}>{username}</span>回来
+        </span>
         <Dropdown overlay={menu}>
           <Avatar size="large" icon={<UserOutlined />} />
         </Dropdown>

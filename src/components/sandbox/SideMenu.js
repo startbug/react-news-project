@@ -1,48 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { Layout, Menu } from "antd";
-import { UserOutlined } from "@ant-design/icons";
 import { withRouter } from "react-router-dom";
 import axios from "axios";
 
 const { SubMenu } = Menu;
 const { Sider } = Layout;
 
-const menuList = [
-  {
-    key: "/home",
-    title: "首页",
-    icon: <UserOutlined />,
-  },
-  {
-    key: "/user-manage",
-    title: "用户管理",
-    icon: <UserOutlined />,
-    children: [
-      {
-        key: "/user-manage/list",
-        title: "用户列表",
-        icon: <UserOutlined />,
-      },
-    ],
-  },
-  {
-    key: "/right-manage",
-    title: "权限管理",
-    icon: <UserOutlined />,
-    children: [
-      {
-        key: "/right-manage/role/list",
-        title: "角色列表",
-        icon: <UserOutlined />,
-      },
-      {
-        key: "/right-mange/role/list",
-        title: "权限列表",
-        icon: <UserOutlined />,
-      },
-    ],
-  },
-];
 function SideMenu(props) {
   useEffect(() => {
     axios.get("http://localhost:8000/rights?_embed=children").then((res) => {
@@ -52,9 +15,18 @@ function SideMenu(props) {
 
   const [menu, setMenu] = useState([]);
 
+  const {
+    role: { rights },
+  } = JSON.parse(localStorage.getItem("token"));
+
+  const checkPagePermission = (item) => {
+    return item.pagepermisson && rights.includes(item.key);
+  };
+
   const renderMenu = (menuList) => {
+    debugger;
     return menuList.map((item) => {
-      if (item.children?.length > 0 && item.pagepermisson === 1) {
+      if (item.children?.length > 0 && checkPagePermission(item)) {
         return (
           <SubMenu key={item.key} icon={item.icon} title={item.title}>
             {renderMenu(item.children)}
@@ -62,7 +34,7 @@ function SideMenu(props) {
         );
       }
       return (
-        item.pagepermisson === 1 && (
+        checkPagePermission(item) && (
           <Menu.Item
             key={item.key}
             icon={item.icon}

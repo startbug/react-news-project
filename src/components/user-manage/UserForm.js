@@ -5,9 +5,27 @@ const { Option } = Select;
 const UserForm = forwardRef((props, ref) => {
   const [isRegionDisabled, setIsRegionDisabled] = useState(false);
 
+  const user = JSON.parse(localStorage.getItem("token"));
+
   useEffect(() => {
     setIsRegionDisabled(props.isUpdateRegionDisabled);
   }, [props.isUpdateRegionDisabled]);
+
+  const isRegsionUnselected = (region) => {
+    if (user.roleId === 1) {
+      return false;
+    } else {
+      return user.region !== region.value;
+    }
+  };
+
+  const isRoleUnselected = (role) => {
+    if (user.roleId === 1) {
+      return false;
+    } else {
+      return role.id <= user.roleId;
+    }
+  };
 
   return (
     <div>
@@ -57,7 +75,11 @@ const UserForm = forwardRef((props, ref) => {
           >
             {props.regionList.map((region) => {
               return (
-                <Option key={region.id} value={region.value}>
+                <Option
+                  key={region.id}
+                  value={region.value}
+                  disabled={isRegsionUnselected(region)}
+                >
                   {region.title}
                 </Option>
               );
@@ -90,7 +112,11 @@ const UserForm = forwardRef((props, ref) => {
           >
             {props.roleList.map((role) => {
               return (
-                <Option key={role.id} value={role.id}>
+                <Option
+                  key={role.id}
+                  value={role.id}
+                  disabled={isRoleUnselected(role)}
+                >
                   {role.roleName}
                 </Option>
               );

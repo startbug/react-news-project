@@ -10,15 +10,6 @@
       "roleId": 1
     },
     {
-      "username": "ppppppp",
-      "password": "234eqfdaswf234312",
-      "roleState": true,
-      "default": false,
-      "region": "",
-      "roleId": 1,
-      "id": 2
-    },
-    {
       "username": "钢蛋",
       "password": "123",
       "roleState": true,
@@ -73,19 +64,19 @@
       "id": 8
     },
     {
-      "username": "123123",
-      "password": "12341243",
-      "region": "亚洲",
-      "roleId": 2,
+      "username": "starbug",
+      "password": "123456",
+      "region": "南美洲",
+      "roleId": 3,
       "roleState": true,
       "default": false,
       "id": 9
     },
     {
-      "username": "1241243",
-      "password": "124124123",
-      "region": "",
-      "roleId": 1,
+      "username": "lhh",
+      "password": "123456",
+      "region": "北美洲",
+      "roleId": 2,
       "roleState": true,
       "default": false,
       "id": 10
@@ -100,7 +91,6 @@
         "/user-manage/add",
         "/user-manage/delete",
         "/user-manage/update",
-        "/user-manage/list",
         "/right-manage",
         "/right-manage/right/list",
         "/right-manage/role/update",
@@ -119,8 +109,12 @@
         "/publish-manage/unpublished",
         "/publish-manage/published",
         "/publish-manage/sunset",
+        "/home",
         "/user-manage",
-        "/home"
+        "/user-manage/list",
+        "/right-manage/role/list",
+        "/right-manage/role/delete",
+        "/right-manage/right/delete"
       ]
     },
     {
@@ -134,20 +128,20 @@
         "/user-manage/delete",
         "/user-manage/update",
         "/user-manage/list",
-        "/news-manage",
         "/news-manage/list",
         "/news-manage/add",
-        "/news-manage/update/:id",
-        "/news-manage/preview/:id",
-        "/news-manage/draft",
-        "/news-manage/category",
-        "/audit-manage",
-        "/audit-manage/audit",
-        "/audit-manage/list",
         "/publish-manage",
         "/publish-manage/unpublished",
         "/publish-manage/published",
-        "/publish-manage/sunset"
+        "/publish-manage/sunset",
+        "/news-manage",
+        "/right-manage",
+        "/right-manage/role/list",
+        "/right-manage/right/list",
+        "/right-manage/role/update",
+        "/right-manage/role/delete",
+        "/right-manage/right/update",
+        "/right-manage/right/delete"
       ]
     },
     {
@@ -156,21 +150,14 @@
       "roleType": 3,
       "rights": [
         "/home",
-        "/news-manage",
-        "/news-manage/list",
-        "/news-manage/add",
-        "/news-manage/update/:id",
-        "/news-manage/preview/:id",
-        "/news-manage/draft",
         "/audit-manage",
         "/audit-manage/list",
         "/publish-manage",
         "/publish-manage/unpublished",
         "/publish-manage/published",
         "/publish-manage/sunset",
-        "/right-manage",
-        "/right-manage/role/list",
-        "/right-manage/right/list"
+        "/user-manage/list",
+        "/user-manage"
       ]
     }
   ],
