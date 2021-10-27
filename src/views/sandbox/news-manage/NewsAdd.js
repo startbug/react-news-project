@@ -1,16 +1,21 @@
 import React, { useEffect, useState, useRef } from "react";
-import { PageHeader, Steps, Button, Form, Input, Select } from "antd";
+import { PageHeader, Steps, Button, Form, Input, Select, message } from "antd";
 import axios from "axios";
 import style from "./News.module.css";
+import { withRouter } from "react-router-dom";
 import NewsEditor from "../../../components/news-manage/NewsEditor";
 
 const { Step } = Steps;
 const { Option } = Select;
-export default function NewsAdd() {
+function NewsAdd(props) {
   const [current, setCurrent] = useState(0);
   const [categories, setCategories] = useState([]);
 
   const NewsForm = useRef(null);
+  const [formInfo, setFormInfo] = useState({});
+  const [content, setContent] = useState("");
+  const user = JSON.parse(localStorage.getItem("token"));
+
   useEffect(() => {
     axios.get("/categories").then((res) => {
       setCategories(res.data);
@@ -31,14 +36,19 @@ export default function NewsAdd() {
       NewsForm.current
         .validateFields()
         .then((res) => {
-          console.log(res);
+          setFormInfo(res);
           setCurrent(current + 1);
         })
         .catch((error) => {
           console.log(error);
         });
     } else {
-      setCurrent(current + 1);
+      if (content === "" || content.trim() === "<p></p>") {
+        message.error("新闻内容不能为空");
+      } else {
+        console.log(formInfo, content);
+        setCurrent(current + 1);
+      }
     }
   };
 
@@ -47,6 +57,26 @@ export default function NewsAdd() {
       return;
     }
     setCurrent(current - 1);
+  };
+  const handleSave = (auditState) => {
+    axios
+      .post("/news", {
+        ...formInfo,
+        content,
+        region: user.region === "" ? "全球" : user.region,
+        author: user.username,
+        roleId: user.roleId,
+        auditState,
+        publishState: 0,
+        createTime: new Date().getTime(),
+        star: 0,
+        view: 0,
+      })
+      .then((res) => {
+        props.history.push(
+          auditState === 0 ? "/news-manage/draft" : "/audit-manage/list"
+        );
+      });
   };
 
   const onFinish = () => {};
@@ -93,15 +123,23 @@ export default function NewsAdd() {
           </Form>
         </div>
         <div className={current === 1 ? "" : style.hidden}>
-          <NewsEditor></NewsEditor>
+          <NewsEditor
+            getContent={(value) => {
+              setContent(value);
+            }}
+          ></NewsEditor>
         </div>
         <div className={current === 2 ? "" : style.hidden}>33333333333</div>
       </div>
       <div style={{ marginTop: "50px" }}>
         {current === 2 && (
           <span>
-            <Button type="primary">保存草稿想</Button>
-            <Button danger>提交审核</Button>
+            <Button type="primary" onClick={() => handleSave(0)}>
+              保存草稿箱
+            </Button>
+            <Button danger onClick={() => handleSave(1)}>
+              提交审核
+            </Button>
           </span>
         )}
         {current > 0 && <Button onClick={handlePrevious}>上一步</Button>}
@@ -114,3 +152,5 @@ export default function NewsAdd() {
     </div>
   );
 }
+
+export default withRouter(NewsAdd);

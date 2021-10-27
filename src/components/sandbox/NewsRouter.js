@@ -7,6 +7,7 @@ import Home from "../../views/sandbox/home/Home";
 import NewsAdd from "../../views/sandbox/news-manage/NewsAdd";
 import NewsCategory from "../../views/sandbox/news-manage/NewsCategory";
 import NewsDraft from "../../views/sandbox/news-manage/NewsDraft";
+import NewsPreview from "../../views/sandbox/news-manage/NewsPreview";
 import Nopermission from "../../views/sandbox/nopermission/Nopermission";
 import Published from "../../views/sandbox/publish-manage/Published";
 import Sunset from "../../views/sandbox/publish-manage/Sunset";
@@ -23,6 +24,7 @@ const LocalRouterMap = {
   "/news-manage/add": NewsAdd,
   "/news-manage/draft": NewsDraft,
   "/news-manage/category": NewsCategory,
+  "/news-manage/preview/:id": NewsPreview,
   "/audit-manage/audit": Audit,
   "/audit-manage/list": AuditList,
   "/publish-manage/unpublished": Unpublished,
@@ -32,10 +34,7 @@ const LocalRouterMap = {
 
 export default function NewsRouter() {
   useEffect(() => {
-    Promise.all([
-      axios.get("/rights"),
-      axios.get("/children"),
-    ]).then((res) => {
+    Promise.all([axios.get("/rights"), axios.get("/children")]).then((res) => {
       setBackRouteList([...res[0].data, ...res[1].data]);
     });
   }, []);
@@ -47,7 +46,9 @@ export default function NewsRouter() {
   } = JSON.parse(localStorage.getItem("token"));
 
   const checkRoute = (route) => {
-    return LocalRouterMap[route.key] && route.pagepermisson;
+    return (
+      LocalRouterMap[route.key] && (route.pagepermisson || route.routepermisson)
+    );
   };
 
   const checkPermission = (route) => {
