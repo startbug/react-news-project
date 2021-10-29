@@ -36,7 +36,7 @@ export default function NewsPreview(props) {
           </Descriptions.Item>
           <Descriptions.Item label="区域">{news.region}</Descriptions.Item>
           <Descriptions.Item label="审核状态">
-            <span style={{ color: "red" }}> {auditList[news.auditStat]}</span>
+            <span style={{ color: "red" }}> {auditList[news.auditState]}</span>
           </Descriptions.Item>
           <Descriptions.Item label="发布状态">
             <span style={{ color: "red" }}>

@@ -15,6 +15,7 @@ import Unpublished from "../../views/sandbox/publish-manage/Unpublished";
 import RightList from "../../views/sandbox/right-manage/RightList";
 import RoleList from "../../views/sandbox/right-manage/RoleList";
 import UserList from "../../views/sandbox/user-manage/UserList";
+import NewsUpdate from "../../views/sandbox/news-manage/NewsUpdate";
 
 const LocalRouterMap = {
   "/home": Home,
@@ -25,6 +26,7 @@ const LocalRouterMap = {
   "/news-manage/draft": NewsDraft,
   "/news-manage/category": NewsCategory,
   "/news-manage/preview/:id": NewsPreview,
+  "/news-manage/update/:id": NewsUpdate,
   "/audit-manage/audit": Audit,
   "/audit-manage/list": AuditList,
   "/publish-manage/unpublished": Unpublished,

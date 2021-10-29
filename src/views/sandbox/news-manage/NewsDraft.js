@@ -9,7 +9,7 @@ import {
 import { Button, Table, Modal } from "antd";
 
 const { confirm } = Modal;
-export default function NewsDraft() {
+export default function NewsDraft(props) {
   const [dataSource, setDataSource] = useState([]);
 
   const { username } = JSON.parse(localStorage.getItem("token"));
@@ -75,9 +75,7 @@ export default function NewsDraft() {
               style={{ margin: "0px 10px" }}
               icon={<EditOutlined />}
               onClick={() => {
-                // setCurrentCheckedKeys(item.rights);
-                // setModalVisible(true);
-                // setCurrentId(item.id);
+                props.history.push(`/news-manage/update/${item.id}`);
               }}
             />
             <Button
