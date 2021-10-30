@@ -1,5 +1,14 @@
 import React, { useEffect, useState, useRef } from "react";
-import { PageHeader, Steps, Button, Form, Input, Select, message } from "antd";
+import {
+  PageHeader,
+  Steps,
+  notification,
+  Button,
+  Form,
+  Input,
+  Select,
+  message,
+} from "antd";
 import axios from "axios";
 import style from "./News.module.css";
 import { withRouter } from "react-router-dom";
@@ -74,8 +83,15 @@ function NewsAdd(props) {
       })
       .then((res) => {
         props.history.push(
-          auditState === 0 ? "/news-manage/draft" : "/audit-manage/list"
+          auditState === 0 ? "/news-manage/draft" : "/audit-manage/audit"
         );
+        notification.info({
+          message: `通知`,
+          description: `你可以到${
+            auditState === 0 ? "草稿箱" : "审核列表"
+          }中查看您的新闻`,
+          placement: "bottomRight",
+        });
       });
   };
 

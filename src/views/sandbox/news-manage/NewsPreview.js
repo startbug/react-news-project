@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { PageHeader, Button, Descriptions } from "antd";
+import { PageHeader, Descriptions } from "antd";
 import axios from "axios";
 import moment from "moment";
 
@@ -10,12 +10,12 @@ export default function NewsPreview(props) {
       console.log(res.data);
       setNews(res.data);
     });
-  }, []);
+  }, [props.match.params.id]);
 
   const [news, setNews] = useState({});
   const auditList = ["未审核", "审核中", "已通过", "未通过"];
   const pulishList = ["未发布", "待发布", "已上线", "已下线"];
-
+  const colorList = ["black", "orange", "green", "red"];
   return (
     <div>
       <PageHeader
@@ -36,10 +36,12 @@ export default function NewsPreview(props) {
           </Descriptions.Item>
           <Descriptions.Item label="区域">{news.region}</Descriptions.Item>
           <Descriptions.Item label="审核状态">
-            <span style={{ color: "red" }}> {auditList[news.auditState]}</span>
+            <span style={{ color: colorList[news.auditState] }}>
+              {auditList[news.auditState]}
+            </span>
           </Descriptions.Item>
           <Descriptions.Item label="发布状态">
-            <span style={{ color: "red" }}>
+            <span style={{ color: colorList[news.publishState] }}>
               {pulishList[news.publishState]}
             </span>
           </Descriptions.Item>

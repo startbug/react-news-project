@@ -6,8 +6,11 @@ import {
   UploadOutlined,
   ExclamationCircleOutlined,
 } from "@ant-design/icons";
-import { Button, Table, Modal } from "antd";
+import { Button, Table, Modal, notification } from "antd";
 
+/**
+ * 草稿箱
+ */
 const { confirm } = Modal;
 export default function NewsDraft(props) {
   const [dataSource, setDataSource] = useState([]);
@@ -22,6 +25,17 @@ export default function NewsDraft(props) {
         setDataSource(res.data);
       });
   }, [username]);
+
+  const handleCheck = (id) => {
+    axios.patch(`/news/${id}`, { auditState: 1 }).then((res) => {
+      props.history.push("/audit-manage/audit");
+      notification.info({
+        message: "通知",
+        description: `您可以到${"审核列表"}中查看您的新闻`,
+        placement: "bottomRight",
+      });
+    });
+  };
 
   const confirmMethod = (item) => {
     confirm({
@@ -89,10 +103,7 @@ export default function NewsDraft(props) {
               shape="circle"
               style={{ margin: "0px 10px" }}
               icon={<UploadOutlined />}
-              onClick={
-                () => {}
-                // confirmMethod(item)
-              }
+              onClick={() => handleCheck(item.id)}
             />
           </div>
         );

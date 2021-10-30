@@ -14,8 +14,8 @@
       "password": "123",
       "roleState": true,
       "default": false,
-      "region": "",
-      "roleId": 1,
+      "region": "亚洲",
+      "roleId": 2,
       "id": 3
     },
     {
@@ -135,13 +135,19 @@
         "/publish-manage/published",
         "/publish-manage/sunset",
         "/news-manage",
+        "/audit-manage",
+        "/audit-manage/audit",
+        "/audit-manage/list",
+        "/right-manage/right/delete",
+        "/right-manage/role/update",
+        "/right-manage/right/update",
+        "/right-manage/role/delete",
         "/right-manage",
         "/right-manage/role/list",
-        "/right-manage/right/list",
-        "/right-manage/role/update",
-        "/right-manage/role/delete",
-        "/right-manage/right/update",
-        "/right-manage/right/delete"
+        "/news-manage/update/:id",
+        "/news-manage/preview/:id",
+        "/news-manage/draft",
+        "/news-manage/category"
       ]
     },
     {
@@ -156,8 +162,14 @@
         "/publish-manage/unpublished",
         "/publish-manage/published",
         "/publish-manage/sunset",
-        "/user-manage/list",
-        "/user-manage"
+        "/audit-manage/audit",
+        "/news-manage/list",
+        "/news-manage/add",
+        "/news-manage/update/:id",
+        "/news-manage/preview/:id",
+        "/news-manage/draft",
+        "/news-manage/category",
+        "/news-manage"
       ]
     }
   ],
@@ -370,7 +382,7 @@
   "categories": [
     {
       "id": 1,
-      "title": "时事新闻",
+      "title": "时事新闻1",
       "value": "时事新闻"
     },
     {
@@ -380,7 +392,7 @@
     },
     {
       "id": 3,
-      "title": "科学技术",
+      "title": "科学技术2",
       "value": "科学技术"
     },
     {
@@ -586,13 +598,13 @@
       "id": 10
     },
     {
-      "title": "那里们",
-      "categoryId": 5,
+      "title": "那里们11111111",
+      "categoryId": 3,
       "content": "<ol>\n<li>aaaaaaaaaaaaaaaaaaaaaaaaaaaaa</li>\n<li>dzfsdzfasgfasdg</li>\n</ol>\n",
       "region": "全球",
       "author": "admin",
       "roleId": 1,
-      "auditState": 0,
+      "auditState": 1,
       "publishState": 0,
       "createTime": 1635339700913,
       "star": 0,
@@ -600,32 +612,90 @@
       "id": 11
     },
     {
-      "title": "ccccccc",
+      "title": "fate/zero",
       "categoryId": 5,
       "content": "<ol>\n<li>sdafasdgasdgfgfdsfgsad</li>\n</ol>\n<ul>\n<li>gfasdgasgasg</li>\n<li>sdafsadf</li>\n</ul>\n",
       "region": "全球",
       "author": "admin",
       "roleId": 1,
-      "auditState": 0,
-      "publishState": 0,
+      "auditState": 2,
+      "publishState": 1,
       "createTime": 1635342060878,
       "star": 0,
       "view": 0,
       "id": 12
     },
     {
-      "title": "那里们",
-      "categoryId": 5,
-      "content": "<ol>\n<li>aa<span style=\"color: rgb(44,130,201);\">aaaa</span><span style=\"color: rgb(44,130,201);background-color: rgb(44,130,201);\">aaaaaaaaaaaaaaaaaaaaaaa</span></li>\n<li>dzfsdzfasgfasdg<span style=\"color: rgb(26,188,156);\">dfgdfgdf</span></li>\n<li><span style=\"color: rgb(26,188,156);\">fgdfgsdfgsd</span><span style=\"color: rgb(243,121,52);\">sdfsdfsdfasdasfasfasasd</span></li>\n<li><span style=\"color: rgb(243,121,52);\">dxfdffffffffffffff<sub>ffffffffffffff</sub></span></li>\n</ol>\n",
+      "title": "zzzz",
+      "categoryId": 2,
+      "content": "<p>sdafasdfgasdg</p>\n",
       "region": "全球",
       "author": "admin",
       "roleId": 1,
-      "auditState": 0,
+      "auditState": 1,
       "publishState": 0,
-      "createTime": 1635518097061,
+      "createTime": 1635581983999,
       "star": 0,
       "view": 0,
-      "id": 13
+      "id": 15
+    },
+    {
+      "title": "fate stay night unlimited blade works",
+      "categoryId": 2,
+      "content": "<p>fsn ubw</p>\n",
+      "region": "全球",
+      "author": "admin",
+      "roleId": 1,
+      "auditState": 1,
+      "publishState": 0,
+      "createTime": 1635585009027,
+      "star": 0,
+      "view": 0,
+      "id": 16
+    },
+    {
+      "title": "钢弹的新闻",
+      "categoryId": 2,
+      "content": "<p>啊啊啊啊啊啊啊</p>\n<ul>\n<li>asd</li>\n</ul>\n",
+      "region": "全球",
+      "author": "钢蛋",
+      "roleId": 1,
+      "auditState": 2,
+      "publishState": 2,
+      "createTime": 1635585235591,
+      "star": 0,
+      "view": 0,
+      "id": 17,
+      "publishTime": 1635590343244
+    },
+    {
+      "title": "测试水水水水水水",
+      "categoryId": 3,
+      "content": "<p>撒大苏打实打实大苏打实打实大苏打实打实</p>\n",
+      "region": "亚洲",
+      "author": "司马海味",
+      "roleId": 3,
+      "auditState": 3,
+      "publishState": 0,
+      "createTime": 1635585567963,
+      "star": 0,
+      "view": 0,
+      "id": 18
+    },
+    {
+      "title": "3eeeeeeeeeeee",
+      "categoryId": 3,
+      "content": "<p>ssssssssssssss</p>\n",
+      "region": "全球",
+      "author": "admin",
+      "roleId": 1,
+      "auditState": 2,
+      "publishState": 3,
+      "createTime": 1635590898161,
+      "star": 0,
+      "view": 0,
+      "id": 19,
+      "publishTime": 1635590902461
     }
   ]
 }
