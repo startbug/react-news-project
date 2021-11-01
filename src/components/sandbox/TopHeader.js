@@ -6,14 +6,16 @@ import {
   UserOutlined,
 } from "@ant-design/icons";
 import { withRouter } from "react-router-dom";
+import { connect } from "react-redux";
 
 const { Header } = Layout;
 
 const TopHeader = (props) => {
-  const [collapsed, setCollapsed] = useState(false);
+  console.log(props);
 
   const changeCollapsed = () => {
-    setCollapsed(!collapsed);
+    //改变state的isCollapsed
+    props.changeCollapsed();
   };
 
   const { username, role } = JSON.parse(localStorage.getItem("token"));
@@ -43,7 +45,7 @@ const TopHeader = (props) => {
             onClick: this.toggle,
           }
         )} */}
-      {collapsed ? (
+      {props.isCollapsed ? (
         <MenuUnfoldOutlined onClick={changeCollapsed} />
       ) : (
         <MenuFoldOutlined onClick={changeCollapsed} />
@@ -60,4 +62,28 @@ const TopHeader = (props) => {
   );
 };
 
-export default withRouter(TopHeader);
+//connect()方法执行完，返回一个高阶函数，再进行包装组件，该组件就可以获得store对象
+/**
+ * connect(
+ *  mapStateToProps 把state映射到props属性上
+ *  mapDispatchToProps 把dispatch方法映射到props属性上
+ * )(被包装的组件)
+ */
+const mapStateToProps = ({ CollapsedReducer: { isCollapsed } }) => {
+  return {
+    isCollapsed,
+  };
+};
+
+const mapDispatchToProps = {
+  changeCollapsed() {
+    return {
+      type: "change_collapsed",
+    };
+  },
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withRouter(TopHeader));

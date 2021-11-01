@@ -16,6 +16,8 @@ import RightList from "../../views/sandbox/right-manage/RightList";
 import RoleList from "../../views/sandbox/right-manage/RoleList";
 import UserList from "../../views/sandbox/user-manage/UserList";
 import NewsUpdate from "../../views/sandbox/news-manage/NewsUpdate";
+import { Spin } from "antd";
+import { connect } from "react-redux";
 
 const LocalRouterMap = {
   "/home": Home,
@@ -34,7 +36,7 @@ const LocalRouterMap = {
   "/publish-manage/sunset": Sunset,
 };
 
-export default function NewsRouter() {
+function NewsRouter(props) {
   useEffect(() => {
     Promise.all([axios.get("/rights"), axios.get("/children")]).then((res) => {
       setBackRouteList([...res[0].data, ...res[1].data]);
@@ -58,22 +60,30 @@ export default function NewsRouter() {
   };
 
   return (
-    <Switch>
-      {backRouteList.map((route) => {
-        if (checkRoute(route) && checkPermission(route)) {
-          return (
-            <Route
-              path={route.key}
-              key={route.key}
-              component={LocalRouterMap[route.key]}
-              exact
-            />
-          );
-        }
-        return null;
-      })}
-      <Redirect from="/" to="/home" exact />
-      {backRouteList.length > 0 && <Route path="*" component={Nopermission} />}
-    </Switch>
+    <Spin size="large" spinning={props.isLoading}>
+      <Switch>
+        {backRouteList.map((route) => {
+          if (checkRoute(route) && checkPermission(route)) {
+            return (
+              <Route
+                path={route.key}
+                key={route.key}
+                component={LocalRouterMap[route.key]}
+                exact
+              />
+            );
+          }
+          return null;
+        })}
+        <Redirect from="/" to="/home" exact />
+        {backRouteList.length > 0 && (
+          <Route path="*" component={Nopermission} />
+        )}
+      </Switch>
+    </Spin>
   );
 }
+
+const mapStateToProps = ({ LoadingReducer: { isLoading } }) => ({ isLoading });
+
+export default connect(mapStateToProps)(NewsRouter);

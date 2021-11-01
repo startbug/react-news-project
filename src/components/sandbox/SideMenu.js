@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Layout, Menu } from "antd";
 import { withRouter } from "react-router-dom";
 import axios from "axios";
+import { connect } from "react-redux";
 
 const { SubMenu } = Menu;
 const { Sider } = Layout;
@@ -55,7 +56,7 @@ function SideMenu(props) {
   // OpenKeys={[openKeys]}
   const openKeys = "/" + props.location.pathname.split("/")[1];
   return (
-    <Sider trigger={null} collapsible collapsed={false}>
+    <Sider trigger={null} collapsible collapsed={props.isCollapsed}>
       <div style={{ display: "flex", height: "100%", flexDirection: "column" }}>
         <div className="logo">全球新闻发布管理系统</div>
         <div style={{ flex: 1, overflow: "auto" }}>
@@ -72,5 +73,10 @@ function SideMenu(props) {
     </Sider>
   );
 }
+
+const mapStateToProps = ({ CollapsedReducer: { isCollapsed } }) => ({
+  isCollapsed,
+});
+
 //使用withRouter高阶组件包装低阶组件，生成高阶组件，生成的路由组件的props会有相应的属性提供使用
-export default withRouter(SideMenu);
+export default connect(mapStateToProps)(withRouter(SideMenu));
